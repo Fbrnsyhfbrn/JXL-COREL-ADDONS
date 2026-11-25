@@ -98,10 +98,8 @@ Ensure the following tools are installed on your PC before running the installer
 
 ---
 ## Windows Installation (Automatic installation)
-```text
-JXL Novorius – Installation Guide
 
-Installation instructions for JXL Novorius v0.6.1 on CorelDRAW 2026 (Windows).
+Installation instructions for JXL Novorius on CorelDRAW (Windows).
 
 Please follow each step in the correct order to ensure a successful installation.
 
