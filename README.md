@@ -49,8 +49,8 @@ The `v0.6.0-compat` installer inspects executable PE headers and CorelDRAW SDK v
 | CorelDRAW Release | SDK Major | Installer Target Group | Readiness Status |
 | :--- | :---: | :--- | :--- |
 | **CorelDRAW 2026** | `27` | **Standard Build (Non-Legacy)** — Selected via its specific list index | User-Tested (v0.5.1 Baseline) |
-| **CorelDRAW 2025** | `26` | **Under Corel 2026** — Included in the 2025-and-older batch option | User-Tested |
-| **CorelDRAW 2024** | `25` | **Under Corel 2026** — Included in the 2025-and-older batch option | User-Tested |
+| **CorelDRAW 2025** | `26` | **Under Corel 2026** — Included in the 2025-and-older batch option | User-Tested (v0.6.1 Baseline) |
+| **CorelDRAW 2024** | `25` | **Under Corel 2026** — Included in the 2025-and-older batch option | User-Tested (v0.6.1 Baseline) |
 | **CorelDRAW 2022–2023** | `24` | **Under Corel 2026** — Included in the 2025-and-older batch option | Candidate |
 | **CorelDRAW 2021** | `23` | **Under Corel 2026** — Included in the 2025-and-older batch option | Candidate |
 | **CorelDRAW 2020** | `22` | **Under Corel 2026** — Included in the 2025-and-older batch option | Candidate |
