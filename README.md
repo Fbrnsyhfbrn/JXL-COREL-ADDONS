@@ -65,7 +65,7 @@ The `v0.6.0-compat` installer inspects executable PE headers and CorelDRAW SDK v
 > Inside the installer prompt, pressing **`A` (All detected eligible versions older than 2026)** targets **CorelDRAW 2025 (v26) and below** exclusively. To install on **CorelDRAW 2026 (v27)**, select its specific index number from the detected list.
 
 ---
-```text
+
 
 ## Windows Installation ( Manual installation )
 
@@ -185,7 +185,6 @@ On macOS, JXL Novorius runs as a **standalone local desktop application**, compl
 
 ---
 
-```
 
 ## Key Features & Format Support
 
