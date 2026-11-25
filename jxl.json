@@ -1,0 +1,1 @@
+{"id":"jxl","label":"Import JXL","category":"Image","handler":"tools.jxl:decode","input_extensions":[".jxl"],"output_extension":".png","api_version":1}

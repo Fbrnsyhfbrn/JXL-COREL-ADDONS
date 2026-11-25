@@ -1,0 +1,9 @@
+test_corrupt (test_exports.Exports.test_corrupt) ... ok
+test_formats (test_exports.Exports.test_formats) ... ok
+test_job_error (test_live.Live.test_job_error) ... ok
+test_quality (test_live.Live.test_quality) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 3.950s
+
+OK
