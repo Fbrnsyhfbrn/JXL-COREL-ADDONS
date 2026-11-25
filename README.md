@@ -3,9 +3,6 @@ JXL Novorius
 <p align="center">
   <strong>JPEG XL Integration for CorelDRAW</strong><br>
   An experimental, AI-assisted project bringing JPEG XL conversion and workflow integration to CorelDRAW on Windows and macOS.
-</p><p align="center">
-  <img src="docs/assets/novorius-banner.png" alt="JXL Novorius Banner" width="850">
-</p><p align="center">
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-64748b?style=flat-square">
   <img src="https://img.shields.io/badge/Format-JPEG%20XL-8b5cf6?style=flat-square">
   <img src="https://img.shields.io/badge/Windows-CorelDRAW%202026-2563eb?style=flat-square">
