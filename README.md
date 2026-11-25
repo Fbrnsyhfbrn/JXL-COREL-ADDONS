@@ -155,7 +155,6 @@ After completing both installation stages:
 1. Launch or restart CorelDRAW 2026.
 2. Check whether JXL Novorius is available under Extensions or its designated plugin location.
 3. If the plugin appears, the installation is complete and JXL Novorius is ready to use.
-````
 ---
 
 
