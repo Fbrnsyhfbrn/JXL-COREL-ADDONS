@@ -1,561 +1,371 @@
-JXL Novorius
-
-<p align="center">
-  <strong>JPEG XL Integration for CorelDRAW</strong><br>
-  An experimental, AI-assisted project bringing JPEG XL conversion and workflow integration to CorelDRAW on Windows and macOS.
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-64748b?style=flat-square">
-  <img src="https://img.shields.io/badge/Format-JPEG%20XL-8b5cf6?style=flat-square">
-  <img src="https://img.shields.io/badge/Windows-CorelDRAW%202026-2563eb?style=flat-square">
-  <img src="https://img.shields.io/badge/macOS-Standalone%20Launcher-64748b?style=flat-square">
-  <img src="https://img.shields.io/badge/Status-Experimental-f59e0b?style=flat-square">
-</p><p align="center">
-  <i>One format. Two platforms. Different integration approaches.</i>
-</p>---
-
-Overview
-
-JXL Novorius is an experimental JPEG XL conversion project designed to make ".jxl" files more accessible in graphic design workflows.
-
-The project provides two different implementations:
-
-Windows| macOS
-CorelDRAW Add-on| Standalone Launcher
-Native Docker interface| Local desktop application
-Automatic add-on deployment| Manual CorelDRAW script integration
-Multi-version compatibility builds| Homebrew / Python-based decoding
-
-The Windows edition integrates directly into CorelDRAW through a native CPG host and WPF Docker interface.
-
-The macOS edition runs independently as a local desktop application. It provides batch conversion, diagnostics, and an experimental JavaScript bridge for importing converted PNG files into CorelDRAW.
-
-«Important: The macOS application is not a native CorelDRAW add-on. It does not install a Docker, register a CorelDRAW extension, or inject code into the application.»
-
-Application Preview
-
-Windows — CorelDRAW Docker
-
-Novorius Interface| Live Conversion Diagnostics
-"Windows Docker Preview" (docs/assets/windows-docker.png)| "Windows Diagnostics Preview" (docs/assets/windows-logs.png)
-Native CorelDRAW Docker interface| Real-time conversion events and diagnostics
-
-macOS — Standalone Launcher
-
-Application Interface| Conversion Results
-"macOS Launcher Preview" (docs/assets/macos-launcher.png)| "macOS Conversion Preview" (docs/assets/macos-results.png)
-Independent local desktop application| Batch processing and conversion logs
-
-Replace the preview images with actual application screenshots. Recommended image format: PNG or WebP.
-
----
-
-Features
-
-Windows Edition
-
-- Native CorelDRAW Docker integration.
-- Batch import of multiple JPEG XL files.
-- Drag-and-drop support inside the Novorius panel.
-- Automatic PNG conversion and document import.
-- Export to PNG, JPG, WebP, TIFF, GIF and BMP.
-- Adjustable JPG and WebP quality.
-- Persistent conversion logs.
-- Live diagnostics, including:
-  - Decoder events.
-  - Effective output quality.
-  - Output file size.
-  - Conversion duration.
-  - Process exit code.
-  - Verified CorelDRAW object counts.
-- Separate installation from the original JLX Converter.
-- Version-specific CPG and WPF builds.
-
-macOS Edition
-
-- Standalone dark desktop interface.
-- Local batch JPEG XL conversion.
-- PNG, JPG, WebP, TIFF, GIF and BMP export.
-- Adjustable JPG and WebP quality.
-- Real subprocess output and conversion diagnostics.
-- Persistent local logs.
-- Experimental CorelDRAW JavaScript import bridge.
-- Apple Silicon and Intel support, subject to dependency availability.
-
----
-
-Compatibility
-
-Windows — CorelDRAW
-
-The Windows edition uses separate compatibility targets to avoid assuming that different CorelDRAW SDK versions share the same ABI or runtime behavior.
-
-CorelDRAW Release| SDK Major| Compatibility
-2026| 27| Dedicated build
-2025| 26| Compatibility build
-2024| 25| Compatibility build
-2022–2023| 24| Experimental
-2021| 23| Experimental
-2020| 22| Experimental
-2019| 21| Experimental
-2018| 20| Legacy experimental
-2017| 19| Legacy experimental
-X8| 18| Legacy experimental
-X7| 17| Legacy experimental
-X6 and earlier| —| Not supported
-
-Choose the correct build
-
-CorelDRAW 2026 — v27
-
-Use the standard 2026 package.
-
-This build targets CorelDRAW 2026 and its SDK major version 27.
-
-Under CorelDRAW 2026 — v26 and earlier
-
-Use the compatibility package.
-
-This package targets CorelDRAW 2025 and earlier releases. The installer builds the CPG and WPF components against the selected installation's SDK and interop assemblies.
-
-Each detected installation is built independently. The installer refuses ambiguous SDK paths rather than silently borrowing a newer SDK.
-
-«Compatibility entries are experimental until individually tested on their respective CorelDRAW versions.»
-
-Platform limitations
-
-- Windows x64 only.
-- No ARM64 or x86 builds.
-- X6 and earlier are outside the supported scope.
-- Older CorelDRAW releases may require a compatible Windows environment and modern MSVC runtime.
-- SDK method availability does not guarantee ABI or workspace compatibility.
-
-macOS
-
-Component| Requirement
-Operating system| macOS
-Architecture| Apple Silicon / Intel
-Application| CorelDRAW 2026 for Mac
-Python| Python 3.12
-Decoder| Pillow JPEG XL binding or Homebrew libjxl
-Integration| JavaScript Scripts Inspector
-Additional tools| Homebrew, Bash, Perl
-
-The macOS edition is a standalone local launcher, not a native CorelDRAW extension.
-
----
-
-Installation
-
-Windows — CorelDRAW Integration
-
-Build dependencies
-
-The build machine requires:
-
-- Python 3.12 x64.
-- Visual Studio 2022 Build Tools.
-- C++ x64 build tools.
-- Windows SDK.
-- .NET Framework 4.x.
-- A supported CorelDRAW x64 installation.
-
-The installer uses the selected CorelDRAW installation's SDK and type library to generate the corresponding components.
-
-Automatic installation
-
-1. Close all running CorelDRAW instances.
-2. Extract the downloaded package.
-3. Run "INSTALL.bat" as Administrator.
-4. Allow the installer to check the build dependencies.
-5. Install or configure any missing prerequisites when requested.
-6. Allow the installer to build the engine and CorelDRAW components.
-7. Select the detected CorelDRAW installation by its list index.
-
-Use "A" to install on all detected eligible versions when supported by the selected compatibility package.
-
-The installer then:
-
-- Detects the CorelDRAW executable architecture and version.
-- Locates the appropriate SDK.
-- Builds a separate CPG and WPF assembly.
-- Tests the decoder.
-- Backs up the previous Novorius installation.
-- Deploys the generated components into the corresponding CorelDRAW directory.
-
-The standard deployment location is:
-
-"Programs64/Addons/JXLNovorius"
-
-After installation, launch CorelDRAW.
-
-The Novorius Docker should load automatically and should also be accessible through:
-
-"Window → Dockers → Novorius"
-
-Troubleshooting utilities
-
-Script| Purpose
-"CHECK.bat"| Check installation and diagnostics
-"UNINSTALL.bat"| Remove Novorius components
-"INSTALL.bat"| Build and deploy Novorius
-
-The installer only manages Novorius. It does not intentionally modify or replace the original JLX Converter.
-
-«Administrator privileges are required for automatic deployment into protected CorelDRAW installation directories. This is add-on deployment and registration, not runtime process injection.»
-
-macOS — Standalone Launcher
-
-The macOS package operates independently from CorelDRAW.
-
-1. Install Python
-
-Download Python 3.12 with Tk support:
-
-https://www.python.org/downloads/macos/
-
-2. Install dependencies
-
-Install Homebrew if it is not already available:
-
-https://brew.sh/
-
-For the Homebrew decoder fallback:
-
-brew install jpeg-xl
-
-3. Install Novorius
-
-Extract the package, open Terminal, navigate to the extracted directory and execute:
-
-bash INSTALL.command
-
-4. Launch
-
-bash OPEN.command
-
-The installer creates a local Python virtual environment.
-
-No background service, native CorelDRAW Docker, or system-wide extension installation is required.
-
----
-
-Usage
-
-Windows
-
-1. Open CorelDRAW.
-2. Open the Novorius Docker.
-3. Drag one or more ".jxl" files into the panel or use Browse.
-4. Select the desired conversion mode.
-5. Start processing.
-6. Inspect the imported object or generated output.
-
-Conversion modes
-
-Import into document
-
-Converts the JXL input to PNG and imports it into the current CorelDRAW document.
-
-Save converted files beside originals
-
-Exports the converted file alongside its source.
-
-Supported formats:
-
-Format| Alpha Support| Quality Control
-PNG| Yes| Lossless
-JPG| No, white background| Adjustable
-WebP| Yes, where supported| Adjustable
-TIFF| Yes, where supported| N/A
-GIF| Limited| Palette-based
-BMP| No, white background| N/A
-
-Existing filenames are not overwritten.
-
-macOS
-
-1. Launch JXL Novorius.
-2. Browse for ".jxl" files.
-3. Select the desired processing mode.
-4. Choose an output format.
-5. Adjust quality when applicable.
-6. Process the files.
-7. Inspect the conversion log and generated files.
-
-CorelDRAW import bridge
-
-To import a converted image:
-
-1. Select Prepare Corel Import.
-2. Process the selected JXL files.
-3. Open the generated Corel script folder.
-4. Open a blank CorelDRAW document.
-5. Open the Scripts Inspector.
-6. Load and execute the generated "Import-1.js".
-7. Verify the imported bitmap visually.
-
-The bridge uses CorelDRAW's JavaScript scripting interface and "Layer.ImportEx".
-
-This workflow is intentionally manual. The application does not automatically invoke an external decoder from inside CorelDRAW.
-
----
-
-Live Diagnostics
-
-The Windows debug edition includes a collapsible live conversion log.
-
-Diagnostics include:
-
-- Actual decoder output.
-- Conversion events.
-- Effective quality settings.
-- Output file size.
-- Elapsed processing time.
-- Exit codes.
-- Verified CorelDRAW object counts.
-
-The log is persisted locally:
-
-%LOCALAPPDATA%\JXLNovorius\conversion.log
-
-The macOS edition stores logs at:
-
-~/Library/Logs/JXLNovorius/conversion.log
-
-Generated Corel import jobs are stored at:
-
-~/Library/Application Support/JXLNovorius/Jobs
-
-Clearing the visible log does not erase the persistent disk log.
-
-Privacy note: Logs may contain local filenames and filesystem paths. Review them before sharing.
-
----
-
-Technical Architecture
-
-Windows
-
-CorelDRAW
-    |
-    v
-Native CPG Startup Host
-    |
-    v
-Novorius Docker
-    |
-    v
-WPF User Interface
-    |
-    v
-Python Conversion Engine
-    |
-    v
-JPEG XL Decoder
-    |
-    v
-Pillow / Output Encoders
-    |
-    v
-PNG / JPG / WebP / TIFF / GIF / BMP
-
-Key project files:
-
-File| Responsibility
-"host/startup.cpp"| Native Docker startup
-"host/DockerUI.cs"| WPF interface
-"host/*.xslt"| Menu registration
-"engine/tools/export.py"| Output encoding
-"INSTALL.bat"| Build and deployment
-
-macOS
-
-macOS
-  |
-  v
-Standalone Tk Application
-  |
-  v
-Local Python Engine
-  |
-  v
-Pillow / libjxl / djxl
-  |
-  v
-Converted Image
-  |
-  v
-Generated JavaScript Bridge
-  |
-  v
-CorelDRAW Scripts Inspector
-  |
-  v
-Document Import
-
-Key project files:
-
-File| Responsibility
-"app.py"| Desktop application
-"engine/"| Conversion engine
-"corel/import-template.js"| Experimental import bridge
-"INSTALL.command"| Local environment setup
-"OPEN.command"| Application launcher
-
----
-
-Known Limitations
-
-Windows
-
-- No native CorelDRAW canvas drop.
-- No Ctrl+I file-filter integration.
-- No reverse conversion.
-- No arbitrary input formats.
-- Animated JXL export is experimental.
-- Animated import is rejected when the decoder exposes multiple frames.
-- GIF transparency is limited.
-- JPG and BMP flatten transparency onto white.
-- ICC profiles and DPI depend on decoder and encoder support.
-- Color output is not guaranteed to be identical inside CorelDRAW.
-- Multi-version compatibility requires individual runtime testing.
-
-macOS
-
-- Not a native CorelDRAW add-on.
-- No automatic Docker startup.
-- No custom Scripts Inspector.
-- No direct canvas drag-and-drop.
-- No automatic decoder invocation from CorelDRAW JavaScript.
-- Animated JXL support is unverified.
-- FFmpeg fallback processes static images only and may select the first frame.
-- ICC, physical DPI, orientation and CorelDRAW alpha handling remain unverified.
-
----
-
-Validation & Testing
-
-The project distinguishes between locally validated functionality and features requiring real target-system testing.
-
-Test Area| Status
-Windows v0.5.1 JPG quality 100 export| User-tested
-Windows v0.5.1 live conversion logging| User-tested
-CorelDRAW 2026 v0.5.1 host| User-tested
-Windows v0.6.0 compatibility installer| Untested
-CorelDRAW 2025 and older runtime| Untested
-macOS standalone GUI| Requires real Mac testing
-macOS CorelDRAW JavaScript bridge| Untested
-Animated JXL export| Experimental
-
-Local regression tests use FFmpeg/libjxl static fixtures and Pillow output encoding.
-
-These tests do not establish that the bundled Windows decoder, CPG integration, or macOS CorelDRAW scripting bridge works on every target system.
-
-See "tests/LOCAL-RESULT.txt" for the actual local test results.
-
-Windows compatibility test procedure
-
-For each CorelDRAW version:
-
-1. Close all CorelDRAW instances.
-2. Install only the desired target.
-3. Open CorelDRAW with a blank document.
-4. Verify Docker auto-load.
-5. Import "tests/fixtures/alpha_lossless.jxl".
-6. Verify 40 × 24 px dimensions and transparency.
-7. Export JPG at quality 20 and 95.
-8. Test PNG, WebP, TIFF, GIF and BMP.
-9. Test "invalid.jxl" and verify error handling.
-10. Restart CorelDRAW and verify startup again.
-11. Run "CHECK.bat".
-
-When reporting issues, include:
-
-- CorelDRAW version.
-- "build-info.json".
-- Conversion logs.
-- Compiler errors, if any.
-- Relevant screenshots.
-
----
-
-Command Line
-
-Windows:
-
-novorius.exe export input.jxl output.gif --format gif --quality 95
-
-macOS:
-
-.venv/bin/python engine/deck.py export \
-  input.jxl output.jpg \
-  --format jpg \
-  --quality 95 \
-  --live
-
-For the Homebrew decoder fallback:
-
-.venv/bin/python engine/deck.py export \
-  input.jxl output.jpg \
-  --format jpg \
-  --quality 95 \
-  --live \
-  --backend djxl
-
----
-
-Development
-
-JXL Novorius is developed through vibe coding and AI-assisted development.
-
-The project builds upon the user-tested JLX Converter v0.4.1 host architecture while introducing additional conversion features, diagnostics, and platform-specific implementations.
-
-Development guidelines:
-
-- Keep the original JLX Converter unchanged.
-- Use separate development branches for experimental editions.
-- Keep Windows SDK builds isolated by CorelDRAW version.
-- Do not reuse CPG GUIDs or engines across independent installations.
-- Preserve third-party attribution.
-- Validate functionality on actual target systems before declaring compatibility.
-
-Suggested branches:
-
-main
-windows-2026
-windows-compat
-macos-experimental
-
-Suggested release tags:
-
-v0.5.1
-v0.6.0-compat
-v0.5.1-macos-alpha
-
----
-
-References
-
-- "CorelDRAW X7 AddDocker API" (https://community.coreldraw.com/sdk/api/draw/17/m/framework.adddocker)
-- "CorelDRAW X7 IVGAppPlugin" (https://community.coreldraw.com/sdk/api/draw/17/i/ivgappplugin)
-- "CorelDRAW 2025 AddDocker API" (https://community.coreldraw.com/sdk/api/draw/26/m/framework.adddocker)
-- "CorelDRAW JavaScript Integration" (https://community.coreldraw.com/sdk/w/articles/349/using-javascript-with-coreldraw)
-- "CorelDRAW Layer.ImportEx" (https://community.coreldraw.com/sdk/api/draw/26/m/layer.importex?lang=js)
-- "libjxl" (https://github.com/libjxl/libjxl)
-- "Homebrew JPEG XL" (https://formulae.brew.sh/formula/jpeg-xl)
-
----
-
-Disclaimer
-
-JXL Novorius is an experimental, independently developed project.
-
-It is not an official CorelDRAW product and is not affiliated with, endorsed by, or maintained by Corel Corporation.
-
-The software is provided for experimentation and evaluation. Compatibility, stability, and behavior may vary depending on the operating system, CorelDRAW version, SDK, decoder and installed dependencies.
-
-No project license has been selected yet. All third-party components remain subject to their respective licenses and notices.
-
-<p align="center">
-  <strong>JXL Novorius</strong><br>
-  <sub>Experimental JPEG XL workflow integration.</sub>
-</p>
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JXL Novorius — Dokumentasi & Asisten Alur Kerja Interaktif</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+          colors: {
+            studio: {
+              950: '#07090f',
+              900: '#0b0f19',
+              850: '#101624',
+              800: '#151d2e',
+              750: '#1c263b',
+            },
+            violetglow: '#8b5cf6',
+            royal: '#2563eb',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: #07090f;
+      color: #e2e8f0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    code, pre, .font-mono {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    }
+
+    /* Latar studio subtle grid & ambient glow */
+    .studio-grid {
+      background-size: 28px 28px;
+      background-image:
+        linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+    }
+
+    .ambient-orb-violet {
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, rgba(139, 92, 246, 0) 70%);
+    }
+
+    .ambient-orb-blue {
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.20) 0%, rgba(37, 99, 235, 0) 70%);
+    }
+
+    /* Pola papan catur untuk pratinjau transparansi / alpha */
+    .checkerboard {
+      background-color: #111827;
+      background-image:
+        linear-gradient(45deg, #1f2937 25%, transparent 25%),
+        linear-gradient(-45deg, #1f2937 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #1f2937 75%),
+        linear-gradient(-45deg, transparent 75%, #1f2937 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #233049;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334669;
+    }
+
+    /* Animasi toast halus */
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .toast-enter {
+      animation: toastIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="studio-grid min-h-screen antialiased selection:bg-violet-500/30 selection:text-violet-200">
+
+  <!-- Ambient Background Glow -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden -z-10">
+    <div class="ambient-orb-violet absolute -top-28 -left-24 h-[420px] w-[420px] rounded-full blur-2xl"></div>
+    <div class="ambient-orb-blue absolute top-32 right-0 h-[460px] w-[460px] rounded-full blur-2xl"></div>
+  </div>
+
+  <!-- Sticky Top Bar -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-studio-950/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+      <!-- Brand Identity -->
+      <a href="#top" class="flex items-center gap-3 rounded-xl py-1 pr-2 transition hover:opacity-95">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-500/40 bg-gradient-to-br from-violet-600/30 via-blue-600/20 to-slate-900 shadow-lg shadow-violet-950/50">
+          <svg class="h-5 w-5 text-violet-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-base font-bold tracking-tight text-white">JXL Novorius</span>
+            <span class="rounded-md border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[10px] font-medium text-amber-300">
+              EXPERIMENTAL
+            </span>
+          </div>
+          <p class="hidden text-xs text-slate-400 sm:block">JPEG XL Integration for CorelDRAW</p>
+        </div>
+      </a>
+
+      <!-- Quick Section Navigation -->
+      <nav aria-label="Navigasi Utama" class="hidden items-center gap-1 lg:flex">
+        <a href="#arsitektur" class="rounded-lg px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-slate-800/70 hover:text-white">Arsitektur</a>
+        <a href="#kompatibilitas" class="rounded-lg px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-slate-800/70 hover:text-white">Kompatibilitas</a>
+        <a href="#simulator" class="rounded-lg px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-slate-800/70 hover:text-white">Format & CLI</a>
+        <a href="#panduan" class="rounded-lg px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-slate-800/70 hover:text-white">Instalasi & Alur</a>
+        <a href="#validasi" class="rounded-lg px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-slate-800/70 hover:text-white">Batasan & Uji</a>
+      </nav>
+
+      <!-- Global Platform Switcher in Header -->
+      <div class="flex items-center rounded-xl border border-slate-800 bg-studio-900 p-1" role="group" aria-label="Pilih Platform">
+        <button
+          id="nav-platform-windows"
+          type="button"
+          onclick="setPlatform('windows')"
+          class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+        >
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 5.557L10.354 4.5v7.07H3V5.557zm0 12.886L10.354 19.5v-6.93H3v5.873zm8.246 1.19L21 21v-8.43h-9.754v7.063zm0-15.266v7.203H21V3l-9.754 1.367z" />
+          </svg>
+          <span>Windows</span>
+        </button>
+        <button
+          id="nav-platform-macos"
+          type="button"
+          onclick="setPlatform('macos')"
+          class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+        >
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z" />
+          </svg>
+          <span>macOS</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 space-y-16">
+
+    <!-- HERO & OVERVIEW -->
+    <section class="relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-b from-studio-850/95 via-studio-900/95 to-studio-950 p-6 sm:p-10 shadow-2xl">
+      <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Badges -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1 font-mono text-xs font-medium text-violet-300">
+              <span class="h-1.5 w-1.5 rounded-full bg-violet-400"></span>
+              Format: JPEG XL (.jxl)
+            </span>
+            <span class="inline-flex items-center rounded-full border border-blue-500/35 bg-blue-500/10 px-3 py-1 font-mono text-xs font-medium text-blue-300">
+              Windows: CorelDRAW 2026 (v27) &amp; Compat
+            </span>
+            <span class="inline-flex items-center rounded-full border border-slate-700 bg-slate-800/80 px-3 py-1 font-mono text-xs font-medium text-slate-300">
+              macOS: Standalone Launcher
+            </span>
+          </div>
+
+          <h1 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            JXL Novorius
+            <span class="mt-1 block bg-gradient-to-r from-violet-400 via-indigo-300 to-blue-400 bg-clip-text text-transparent">
+              Integrasi JPEG XL untuk CorelDRAW
+            </span>
+          </h1>
+
+          <p class="max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
+            Proyek eksperimental berbasis AI untuk menghadirkan konversi dan integrasi alur kerja file <code class="rounded bg-slate-800 px-1.5 py-0.5 text-violet-300">.jxl</code> ke CorelDRAW pada <strong>Windows</strong> dan <strong>macOS</strong>. Satu format, dua platform, dengan pendekatan integrasi yang dirancang sesuai karakter masing-masing sistem.
+          </p>
+
+          <!-- Platform Switcher Bar (Hero) -->
+          <div class="pt-1">
+            <div class="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Mode Platform Aktif (Memperbarui Pipeline, Log &amp; Panduan)
+            </div>
+            <div class="inline-grid w-full grid-cols-2 gap-2 rounded-2xl border border-slate-800 bg-studio-950/90 p-1.5 sm:w-auto">
+              <button
+                id="hero-btn-windows"
+                type="button"
+                onclick="setPlatform('windows')"
+                class="flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all cursor-pointer sm:text-sm"
+              >
+                <span class="h-2 w-2 rounded-full bg-blue-400"></span>
+                <span>Windows Docker</span>
+              </button>
+              <button
+                id="hero-btn-macos"
+                type="button"
+                onclick="setPlatform('macos')"
+                class="flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all cursor-pointer sm:text-sm"
+              >
+                <span class="h-2 w-2 rounded-full bg-violet-400"></span>
+                <span>macOS Launcher</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Action CTAs -->
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#kompatibilitas" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-lg shadow-violet-900/40 transition hover:brightness-110 sm:text-sm">
+              <span>Cek Kompatibilitas Build</span>
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a href="#simulator" class="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/70 px-4 py-2.5 text-xs font-semibold text-slate-200 transition hover:border-slate-600 hover:bg-slate-800 sm:text-sm">
+              <span>Simulator Format &amp; CLI</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Card: Dynamic Active Platform Snapshot -->
+        <div class="lg:col-span-5">
+          <div id="platform-snapshot-card" class="rounded-2xl border border-slate-800 bg-studio-950/90 p-5 sm:p-6 shadow-inner">
+            <!-- Diisi dinamis oleh JS sesuai platform aktif -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Important Note Banner -->
+      <div class="mt-8 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3.5 text-xs leading-relaxed text-amber-200/95 sm:text-sm">
+        <strong class="font-semibold text-amber-300">Catatan Penting:</strong> Aplikasi <strong>macOS</strong> bukan add-on native CorelDRAW—tidak memasang Docker, tidak mendaftarkan ekstensi CorelDRAW, dan tidak menyuntikkan kode ke dalam proses aplikasi. Pada <strong>Windows</strong>, instalasi menggunakan <em>add-on deployment &amp; registration</em> standar, bukan injeksi proses saat runtime.
+      </div>
+    </section>
+
+    <!-- SECTION 1: INTERACTIVE ARCHITECTURE PIPELINE & LOG PATHS -->
+    <section id="arsitektur" class="space-y-6">
+      <div class="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <span class="font-mono text-xs font-semibold uppercase tracking-wider text-violet-400">01 / Arsitektur Sistem</span>
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            Pipeline &amp; Tanggung Jawab File Interaktif
+          </h2>
+          <p class="mt-1.5 max-w-2xl text-sm text-slate-400">
+            Klik setiap node pada alur kerja di bawah untuk melihat peran teknis, berkas sumber utama, dan lokasi log diagnostik pada platform yang sedang dipilih.
+          </p>
+        </div>
+
+        <div class="inline-flex self-start rounded-xl border border-slate-800 bg-studio-900 p-1 text-xs">
+          <button id="arch-tab-windows" type="button" onclick="setPlatform('windows')" class="rounded-lg px-3 py-1.5 font-semibold transition cursor-pointer">
+            Windows Pipeline
+          </button>
+          <button id="arch-tab-macos" type="button" onclick="setPlatform('macos')" class="rounded-lg px-3 py-1.5 font-semibold transition cursor-pointer">
+            macOS Pipeline
+          </button>
+        </div>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-12">
+        <!-- Pipeline Nodes Column -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="rounded-2xl border border-slate-800 bg-studio-900/85 p-5 sm:p-6">
+            <div class="mb-4 flex items-center justify-between">
+              <span id="arch-mode-label" class="font-mono text-xs font-semibold text-blue-300">WINDOWS • CPG + WPF + PYTHON</span>
+              <span class="text-xs text-slate-400">Klik node untuk inspeksi</span>
+            </div>
+
+            <div id="pipeline-nodes-container" class="space-y-2.5">
+              <!-- Diisi via JS -->
+            </div>
+          </div>
+
+          <!-- Log & Storage Paths Box -->
+          <div class="rounded-2xl border border-slate-800 bg-studio-900/85 p-5">
+            <h3 class="text-sm font-semibold text-white">Lokasi Log Diagnostik &amp; Penyimpanan Lokal</h3>
+            <p class="mt-1 text-xs text-slate-400">
+              Membersihkan log yang tampil di UI tidak menghapus berkas log persisten di disk. Periksa isi log sebelum dibagikan karena dapat memuat nama file dan path lokal.
+            </p>
+            <div id="log-paths-container" class="mt-3.5 space-y-2.5">
+              <!-- Diisi via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Node Inspector Drawer/Panel -->
+        <div class="lg:col-span-5">
+          <div id="node-inspector" class="sticky top-20 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-studio-850 to-studio-950 p-5 sm:p-6 shadow-xl">
+            <!-- Diisi via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: COMPATIBILITY & BUILD FINDER -->
+    <section id="kompatibilitas" class="space-y-6">
+      <div>
+        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-blue-400">02 / Kompatibilitas &amp; Build Finder</span>
+        <h2 class="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+          Pencari Paket &amp; Status Kompatibilitas CorelDRAW
+        </h2>
+        <p class="mt-1.5 max-w-3xl text-sm text-slate-400">
+          Pilih versi CorelDRAW atau lingkungan macOS Anda untuk langsung melihat rekomendasi paket, versi SDK Major, status pengujian, serta prasyarat dan checklist instalasi.
+        </p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-12">
+        <!-- Left: Selector & Version Matrix -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="rounded-2xl border border-slate-800 bg-studio-900/90 p-5 sm:p-6 space-y-4">
+            <label for="compat-target-select" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Pilih Target Versi / Lingkungan
+            </label>
+            <select
+              id="compat-target-select"
+              onchange="selectCompatibilityTarget(this.value)"
+              class="w-full rounded-xl border border-slate-700 bg-studio-950 px-3.5 py-2.5 text-sm font-medium text-white focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30"
+            >
+              <!-- Diisi via JS -->
+            </select>
+
+            <!-- Quick Pills for Popular Targets -->
+            <div>
+              <span class="block text-[11px] font-medium text-slate-400 mb-2">Pintasan Cepat:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" onclick="selectCompatibilityTarget('win-2026')" class="rounded-lg border border-slate-700 bg-slate-800/70 px-2.5 py-1 font-mono text-xs text-slate-200 hover:border-blue-500/60 hover:text-white transition cursor-pointer">2026 (v27)</button>
+                <button type="button" onclick="selectCompatibilityTarget('win-2025')" class="rounded-lg border border-slate-700 bg-slate-800/70 px-2.5 py-1 font-mono text-xs text-slate-200 hover:border-blue-500/60 hover:text-white transition cursor-pointer">2025 (v26)</button>
+                <button type="button" onclick="selectCompatibilityTarget('win-2024')" class="rounded-lg border border-slate-700 bg-slate-800/70 px-2.5 py-1 font-mono text-xs text-slate-200 hover:border-blue-500/60 hover:text-white transition cursor-pointer">2024 (v25)</button>
+                <button type="button" onclick="selectCompatibilityTarget('win-2022-2023')" class="rounded-lg border border-slate-700 bg-slate-800/70 px-2.5 py-1 font-mono text-xs text-slate-200 hover:border-blue-500/60 hover:text-white transition cursor-pointer">2022–2023</button>
+                <button type="button" onclick="selectCompatibilityTarget('win-x6')" class="rounded-lg border border-slate-700 bg-slate-800/70 px-2.5 py-1 font-mono text-xs text-slate-200 hover:border-rose-500/60 hover:text-white transition cursor-pointer">X6 &amp; earlier</button>
+                <button type="button" onclick="selectCompatibilityTarget('mac-2026')" class="rounded-lg border border-slate-700 bg-slate-800/70 px-2.5 py-1 font-mono text-xs text-violet-300 hover:border-violet-500/60 hover:text-white transition cursor-pointer">macOS Launcher</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compact Compatibility Table -->
+          <div class="rounded-2xl border border-slate-800 bg-studio-900/90 overflow-hidden">
+            <div class="border-b border-slate-800 px-4 py-3 flex items-center justify-between">
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-300">Matriks Kompatibilitas Windows (x64)</h
