@@ -38,13 +38,13 @@ Because Windows and macOS expose completely different extensibility APIs in Core
 | **Application Type** | **Native CorelDRAW Docker Add-on** (C++ / WPF) | **Standalone Local Desktop Launcher** (Python / Tk) |
 | **CorelDRAW Integration** | Embedded natively inside CorelDRAW as a Docker panel (`Programs64\Addons`) | **Not** a native add-on or inspector; runs as an independent local desktop app |
 | **Canvas Import Workflow** | Drag-and-drop directly into the Novorius panel to place into the active document | Generates ready-to-import images + an `Import-1.js` bridge for the *Scripts Inspector* |
-| **Testing Status** | v0.5.1 baseline user-tested on CorelDRAW 2026; `v0.6.0-compat` multi-version installer is experimental | Experimental (`v0.5.1-macos-alpha`); untested on physical Mac hardware |
+| **Testing Status** | v0.5.1 baseline user-tested on CorelDRAW 2026; `v0.6.1` multi-version installer is experimental | Experimental (`v0.5.1-macos-alpha`); untested on physical Mac hardware |
 
 ---
 
 ## CorelDRAW Compatibility (Windows x64)
 
-The `v0.6.0-compat` installer inspects executable PE headers and CorelDRAW SDK versions on your machine before compiling. If an SDK path is ambiguous, the installer refuses to borrow a newer SDK to prevent memory or ABI mismatches.
+The `v0.6.1` installer inspects executable PE headers and CorelDRAW SDK versions on your machine before compiling. If an SDK path is ambiguous, the installer refuses to borrow a newer SDK to prevent memory or ABI mismatches.
 
 | CorelDRAW Release | SDK Major | Installer Target Group | Readiness Status |
 | :--- | :---: | :--- | :--- |
