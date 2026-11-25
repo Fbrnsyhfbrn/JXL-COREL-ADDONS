@@ -98,7 +98,6 @@ Ensure the following tools are installed on your PC before running the installer
 
 ---
 ## Windows Installation (Automatic installation)
-
 JXL Novorius – Installation Guide
 
 Installation instructions for JXL Novorius v0.6.1 on CorelDRAW 2026 (Windows).
@@ -159,10 +158,20 @@ After completing both installation stages:
 
 ---
 
+Installation Checklist
+
+- [ ] Download JXL Dependency Requirements.
+- [ ] Extract the dependency ZIP file.
+- [ ] Run Install and select Option 2.
+- [ ] Wait for the dependency installation to complete.
+- [ ] Download JXL Novorius v0.6.1.
+- [ ] Extract the plugin ZIP file.
+- [ ] Run Install as administrator.
+- [ ] Launch CorelDRAW 2026 and verify that the plugin is available.
+
 Important: Do not skip the dependency installation stage. All required dependencies must be installed before installing JXL Novorius.
 
 JXL Novorius v0.6.1 | CorelDRAW 2026 | Windows x64
-
 
 ## macOS Installation & Usage (Local Launcher)
 
