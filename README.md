@@ -66,7 +66,7 @@ The `v0.6.0-compat` installer inspects executable PE headers and CorelDRAW SDK v
 
 ---
 
-## Windows Installation (Auto-Build & Injection)
+## Windows Installation ( Manual installation )
 
 Rather than copying pre-built binaries, the Novorius installer **compiles the engine and C++/WPF assemblies locally** against your exact CorelDRAW SDK, verifies the decoder, and automatically injects the add-on into your CorelDRAW installation directory.
 
@@ -97,7 +97,8 @@ Ensure the following tools are installed on your PC before running the installer
 * **`UNINSTALL.bat`** — Cleanly removes only JXL Novorius without affecting *JLX Converter* if installed side-by-side.
 
 ---
-```text
+## Windows Installation (Automatic installation)
+
 JXL Novorius – Installation Guide
 
 Installation instructions for JXL Novorius v0.6.1 on CorelDRAW 2026 (Windows).
@@ -158,22 +159,10 @@ After completing both installation stages:
 
 ---
 
-Installation Checklist
-
-- [ ] Download JXL Dependency Requirements.
-- [ ] Extract the dependency ZIP file.
-- [ ] Run Install and select Option 2.
-- [ ] Wait for the dependency installation to complete.
-- [ ] Download JXL Novorius v0.6.1.
-- [ ] Extract the plugin ZIP file.
-- [ ] Run Install as administrator.
-- [ ] Launch CorelDRAW 2026 and verify that the plugin is available.
-
 Important: Do not skip the dependency installation stage. All required dependencies must be installed before installing JXL Novorius.
 
 JXL Novorius v0.6.1 | CorelDRAW 2026 | Windows x64
 
-```
 
 ## macOS Installation & Usage (Local Launcher)
 
